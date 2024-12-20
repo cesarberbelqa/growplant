@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Environment Details{% endblock %}
+{% block content %}
+<h2>Environment Details</h2>
+<p><strong>Dimensions:</strong> {{ environment.dimensions }}</p>
+<p><strong>Lighting Type:</strong> {{ environment.lighting_type }}</p>
+<a href="/environments/{{ environment.id }}/edit/" class="btn btn-warning">Edit</a>
+<a href="/environments/" class="btn btn-secondary">Back to List</a>
+{% endblock %}

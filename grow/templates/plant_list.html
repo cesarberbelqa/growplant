@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Plants{% endblock %}
+{% block content %}
+<h2>Plants</h2>
+<a href="/plants/new/" class="btn btn-primary mb-3">Create New Plant</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Variety</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for plant in plants %}
+        <tr>
+            <td>{{ plant.id }}</td>
+            <td>{{ plant.name }}</td>
+            <td>{{ plant.species }}</td>
+            <td>{{ plant.variety }}</td>
+            <td>
+                <a href="/plants/{{ plant.id }}/" class="btn btn-info btn-sm">View</a>
+                <a href="/plants/{{ plant.id }}/edit/" class="btn btn-warning btn-sm">Edit</a>
+                <form action="/plants/{{ plant.id }}/delete/" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

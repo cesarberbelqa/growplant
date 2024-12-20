@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Delete Environment{% endblock %}
+{% block content %}
+<h2>Are you sure you want to delete this environment?</h2>
+<p><strong>Dimensions:</strong> {{ environment.dimensions }}</p>
+<p><strong>Lighting Type:</strong> {{ environment.lighting_type }}</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="/environments/" class="btn btn-secondary">No, Cancel</a>
+</form>
+{% endblock %}

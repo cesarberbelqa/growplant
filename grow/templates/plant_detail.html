@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Plant Details{% endblock %}
+{% block content %}
+<h2>Plant Details</h2>
+<p><strong>Name:</strong> {{ plant.name }}</p>
+<p><strong>Species:</strong> {{ plant.species }}</p>
+<p><strong>Variety:</strong> {{ plant.variety }}</p>
+<p><strong>Planting Date:</strong> {{ plant.planting_date }}</p>
+<p><strong>Growth Stage:</strong> {{ plant.get_growth_stage_display }}</p>
+<p><strong>Notes:</strong> {{ plant.notes }}</p>
+<p><strong>Height:</strong> {{ plant.height }}</p>
+<p><strong>Trunk Diameter:</strong> {{ plant.trunk_diameter }}</p>
+<a href="/plants/{{ plant.id }}/edit/" class="btn btn-warning">Edit</a>
+<a href="/plants/" class="btn btn-secondary">Back to List</a>
+{% endblock %}
+
+<!-- plant_form.html -->
+{% extends 'base.html' %}
+{% block title %}Plant Form{% endblock %}
+{% block content %}
+<h2>Plant Form</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/plants/" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

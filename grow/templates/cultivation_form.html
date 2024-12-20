@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="mb-3">
+        <label for="id_start_date" class="form-label">Start Date</label>
+        <div class="input-group">
+            <input type="datetime-local" class="form-control" id="id_start_date" name="start_date"
+                   value="{{ form.start_date.value|default:''|date:'Y-m-d\\TH:i' }}">
+            <button type="button" class="btn btn-secondary" onclick="setNow()">Now</button>
+        </div>
+        {% for error in form.start_date.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        <label for="id_environment" class="form-label">Environment</label>
+        <select class="form-control" id="id_environment" name="environment">
+            <option value="" {% if not form.environment.value %}selected{% endif %}>---------</option>
+            {% for option in form.environment.field.queryset %}
+                <option value="{{ option.id }}" {% if option.id|stringformat:"s" == form.environment.value|stringformat:"s" %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+        </select>
+        {% for error in form.environment.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/cultivations/" class="btn btn-secondary">Cancel</a>
+</form>
+<script>
+    function setNow() {
+        const now = new Date();
+        const formattedDate = now.toISOString().slice(0, 16);
+        document.getElementById('id_start_date').value = formattedDate;
+    }
+</script>
+{% endblock %}
