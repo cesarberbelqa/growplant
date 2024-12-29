@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}Tendas{% endblock %}
+{% block content %}
+{% load widget_tweaks %}
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+  
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <div class="card o-hidden border-0 shadow-lg my-5">                 
+                <div class="text-center">               
+                    <!-- Page Heading -->
+                    <div class="p-4">
+                        <h1 class="h3 mb-2 text-gray-800">Tendas</h1>
+                        <p class="mb-4">Segue a relação das suas tendas de cultivos.</p>
+                    
+                    
+                        <div class="row justify-content-md-center">
+                            <div class="col-md-4">
+                                <form method="post" class="user">   
+                                    {% csrf_token %}                         
+                                    {% for field in form %}
+                                        <div class="form-group">
+                                            <!-- Field Label -->
+                                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+                                            <!-- Field Input -->
+                                            {{ field|add_class:"form-control" }}
+
+                                            <!-- Error Messages -->
+                                            {% for error in field.errors %}
+                                                <span class="text-danger">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                    <button type="submit" class="btn btn-primary btn-user btn-block w-100">
+                                        Create Environment
+                                    </button>        
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Suas tendas</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    {% for field in form %}
+                                        <!-- Field Label -->
+                                        <td>{{ field.label }}</td>
+                                    {% endfor %}                                    
+                                    <td>actions</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for environment in environments %}
+                                    <tr>
+                                        <td>{{ environment.name }}</td>
+                                        <td>{{ environment.height }}</td>
+                                        <td>{{ environment.width }}</td>
+                                        <td>{{ environment.length }}</td>
+                                        <td>
+                                            <a href="/environment/{{ environment.id }}/edit/" class="btn btn-warning btn-sm">Edit</a>
+                                            <form action="/environment/{{ environment.id }}/delete/" method="post" class="d-inline">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                </tr>
+                                {% endfor %}                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+{% endblock %}

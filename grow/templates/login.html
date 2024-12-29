@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Cesar{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6 mx-auto">
+                <div class="col-8 mx-auto">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Login!</h1>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="text" class="form-control form-control-user" name="username" id="username" placeholder="Enter Email Address...">
+                            {% for error in form.username.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Password">
+                            {% for error in form.password.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>                        
+                        <hr>
+                        <button type="submit" class="btn btn-primary btn-user btn-block w-100">
+                            Login
+                        </button>        
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        <a class="small" href="{% url 'password_reset' %}">Forgot Password?</a>
+                    </div>
+                    <div class="text-center">
+                        <a class="small" href="{% url 'register' %}">Create an Account!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
